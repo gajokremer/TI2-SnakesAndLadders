@@ -3,6 +3,7 @@ package model;
 public class Square {
 	
 	private int id;
+	public char player;
 	private Square next;
 	private Square prev;
 	
@@ -19,6 +20,14 @@ public class Square {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public char getPlayer() {
+		return player;
+	}
+	
+	public void setPlayer(char player) {
+		this.player = player;
 	}
 
 	public Square getNext() {
