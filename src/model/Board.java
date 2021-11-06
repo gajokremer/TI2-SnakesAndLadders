@@ -27,7 +27,7 @@ public class Board {
 	private void createRow(int r, int c, Square firstCurrentRow) {
 
 //		System.out.println("\nCreate row with row: " + r);
-		createCol(r, c + 1, firstCurrentRow);
+		createCol(r, c + 1, firstCurrentRow, firstCurrentRow.getUp());
 		
 		if(r + 1 < rows) {
 			
@@ -38,7 +38,7 @@ public class Board {
 		}
 	}
 
-	private void createCol(int r, int c, Square prev) {
+	private void createCol(int r, int c, Square prev, Square prevRow) {
 		
 		if(c < cols) {
 			
@@ -46,7 +46,15 @@ public class Board {
 			Square current = new Square(r, c);
 			current.setPrev(prev);
 			prev.setNext(current);
-			createCol(r, c + 1, current);
+			
+			if(prevRow != null) {
+				
+				prevRow = prevRow.getNext();
+				current.setUp(prevRow);
+				prevRow.setDown(current);
+			}
+			
+			createCol(r, c + 1, current, prevRow);
 		}
 	}
 	

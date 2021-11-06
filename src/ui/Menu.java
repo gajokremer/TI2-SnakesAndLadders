@@ -47,6 +47,12 @@ public class Menu {
 				break;
 
 			case 2:
+				System.out.println(board);
+				mainMenu();
+				break;
+				
+			case 3:
+				test();
 				mainMenu();
 				break;
 			} 
@@ -75,6 +81,13 @@ public class Menu {
 		char[] p = a[4].toCharArray();
 		
 		board = new Board(rows, cols);
+		
+//		System.out.println(board);
+	}
+	
+	public void test() {
+		
+		board = new Board(4, 4);
 		
 		System.out.println(board);
 	}
