@@ -185,9 +185,17 @@ public class Board {
 			
 			firstCurrentRow.setId(n);
 			
-//			boolean b = firstCurrentRow.getNext() == null;
+			boolean b = firstCurrentRow.getNext() == null;
 			
-			n = numberCol(n + 1, firstCurrentRow.getNext());
+			if(b) {
+				
+				n = numberCol(n + 1, firstCurrentRow.getPrev(), b);
+				
+			} else {
+				
+				n = numberCol(n + 1, firstCurrentRow.getNext(), b);
+			}
+			
 			firstCurrentRow = getLastOfRow(firstCurrentRow);
 			System.out.println("Last of row: " + firstCurrentRow.toString());
 			n = numberRow(n, firstCurrentRow.getUp());
@@ -196,14 +204,22 @@ public class Board {
 		return n;
 	}
 
-	private int numberCol(int n, Square current) {
+	private int numberCol(int n, Square current, boolean b) {
 		
 		System.out.println("Col n: " + n);
 		
 		if(current != null) {
 			
 			current.setId(n);
-			n = numberCol(n + 1, current.getNext());
+			
+			if(b) {
+				
+				n = numberCol(n + 1, current.getPrev(), b);
+				
+			} else {
+				
+				n = numberCol(n + 1, current.getNext(), b);
+			}
 		}
 		
 		return n;
