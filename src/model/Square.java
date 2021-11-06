@@ -72,4 +72,10 @@ public class Square {
 	public void setDown(Square down) {
 		this.down = down;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "[" + row + ", " + col + "]";
+	}
 }

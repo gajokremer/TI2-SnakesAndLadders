@@ -75,5 +75,7 @@ public class Menu {
 		char[] p = a[4].toCharArray();
 		
 		board = new Board(rows, cols);
+		
+		System.out.println(board);
 	}
 }

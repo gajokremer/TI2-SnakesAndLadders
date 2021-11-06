@@ -18,20 +18,20 @@ public class Board {
 	
 	private void createBoard() {
 
-		System.out.println("\nMatrix is created");
+//		System.out.println("\nMatrix is created");
 		first =  new Square(0, 0);
-		System.out.println("First square created");
+//		System.out.println("First square created");
 		createRow(0, 0, first);
 	}
 	
 	private void createRow(int r, int c, Square firstCurrentRow) {
 
-		System.out.println("\nCreate row with row: " + r);
-		createCol(r, c, firstCurrentRow);
+//		System.out.println("\nCreate row with row: " + r);
+		createCol(r, c + 1, firstCurrentRow);
 		
 		if(r + 1 < rows) {
 			
-			Square firstDownRow = new Square(r, c);
+			Square firstDownRow = new Square(r + 1, c);
 			firstDownRow.setUp(firstCurrentRow);
 			firstCurrentRow.setDown(firstDownRow);
 			createRow(r + 1, c, firstDownRow);
@@ -42,12 +42,48 @@ public class Board {
 		
 		if(c < cols) {
 			
-			System.out.println("-Create col with col: " + c);
+//			System.out.println("-Create col with col: " + c);
 			Square current = new Square(r, c);
 			current.setPrev(prev);
 			prev.setNext(current);
 			createCol(r, c + 1, current);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		
+		String msg = "";
+		
+		msg = toStringRow(first);
+		
+		return msg;
+	}
+
+	private String toStringRow(Square firstCurrentRow) {
+		
+		String msg = "";
+		
+		if(firstCurrentRow != null) {
+			
+			msg = toStringCol(firstCurrentRow) + "\n";
+			msg += toStringRow(firstCurrentRow.getDown());
+		}
+		
+		return msg;
+	}
+
+	private String toStringCol(Square current) {
+		
+		String msg = "";
+		
+		if(current != null) {
+			
+			msg += current.toString();
+			msg += toStringCol(current.getNext());
+		}
+		
+		return msg;
 	}
 
 	public void add(int n, Square s) {
