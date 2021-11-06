@@ -10,97 +10,55 @@ public class Board {
 	private int snakes;
 	private char[] players;
 	
-//	public Board(int rows, int cols, char[] players) {
-//		super();
-//		this.setRows(rows);
-//		this.setCols(cols);
-//		this.setPlayers(players);
-//	}
-	
-	public Board() {
-		
-	}
-
-	public Square getFirst() {
-		return first;
-	}
-
-	public void setFirst(Square first) {
-		this.first = first;
-	}
-
-	public Square getLast() {
-		return last;
-	}
-
-	public void setLast(Square last) {
-		this.last = last;
-	}
-
-	public int getRows() {
-		return rows;
-	}
-
-	public void setRows(int rows) {
+	public Board(int rows, int cols) {
 		this.rows = rows;
-	}
-
-	public int getCols() {
-		return cols;
-	}
-
-	public void setCols(int cols) {
 		this.cols = cols;
-	}
-
-	public int getLadders() {
-		return ladders;
-	}
-
-	public void setLadders(int ladders) {
-		this.ladders = ladders;
-	}
-
-	public int getSnakes() {
-		return snakes;
-	}
-
-	public void setSnakes(int snakes) {
-		this.snakes = snakes;
-	}
-
-	public char[] getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(char[] players) {
-		this.players = players;
+		createBoard();
 	}
 	
+	private void createBoard() {
+
+		System.out.println("\nMatrix is created");
+		first =  new Square(0, 0);
+		System.out.println("First square created");
+		createRow(0, 0, first);
+	}
+	
+	private void createRow(int r, int c, Square firstCurrentRow) {
+
+		System.out.println("\nCreate row with row: " + r);
+		createCol(r, c, firstCurrentRow);
+		
+		if(r + 1 < rows) {
+			
+			Square firstDownRow = new Square(r, c);
+			firstDownRow.setUp(firstCurrentRow);
+			firstCurrentRow.setDown(firstDownRow);
+			createRow(r + 1, c, firstDownRow);
+		}
+	}
+
+	private void createCol(int r, int c, Square prev) {
+		
+		if(c < cols) {
+			
+			System.out.println("-Create col with col: " + c);
+			Square current = new Square(r, c);
+			current.setPrev(prev);
+			prev.setNext(current);
+			createCol(r, c + 1, current);
+		}
+	}
+
 	public void add(int n, Square s) {
 		
-		if(first == null) {
-			
-			first = s;
-			
-		} else {
-			
-			add(n, s.getNext());
-		}
+	
 	}
 	
 	public String print() {
 		
 		String result = "";
-		Square temp = null;
-		
-		do {
-			
-			result += temp.getId();
-			temp = temp.getNext();
-			
-		} while(temp.getNext() != null);
-		
+	
 		return result;
 	}
 }

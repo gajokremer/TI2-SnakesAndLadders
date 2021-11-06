@@ -15,7 +15,7 @@ class TestBoard {
 	
 	public void setUpScenario1() {
 		
-		board = new Board();
+//		board = new Board();
 	}
 	
 	@Test
@@ -23,10 +23,5 @@ class TestBoard {
 		
 		setUpScenario1();
 		
-		Square s = new Square(1, null, null);
-		
-		board.add(1, s);
-		
-		assertTrue(board.getFirst() != null);
 	}
 }
