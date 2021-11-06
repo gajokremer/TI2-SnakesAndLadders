@@ -48,6 +48,7 @@ public class Menu {
 
 			case 2:
 				System.out.println(board);
+				System.out.println("First: " + board.getFirst());
 				System.out.println("Last: " + board.getLast());
 				mainMenu();
 				break;
@@ -79,7 +80,9 @@ public class Menu {
 		int rows = Integer.parseInt(a[0]);
 		int cols = Integer.parseInt(a[1]);
 				
-		char[] p = a[4].toCharArray();
+//		char[] p = a[4].toCharArray();
+		
+		String players = a[4];
 		
 		board = new Board(rows, cols);
 		
@@ -92,6 +95,7 @@ public class Menu {
 		
 		System.out.println(board);
 		
+		System.out.println("First: " + board.getFirst());
 		System.out.println("Last: " + board.getLast());
 	}
 }

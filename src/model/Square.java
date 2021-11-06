@@ -11,6 +11,8 @@ public class Square {
 	private Square up;
 	private Square down;
 	
+	private boolean relation;
+	
 	public Square(int row, int col) {
 //		this.id = id;
 		this.row = row;
@@ -73,9 +75,18 @@ public class Square {
 		this.down = down;
 	}
 	
+	public boolean isRelation() {
+		return relation;
+	}
+
+	public void setRelation(boolean relation) {
+		this.relation = relation;
+	}
+
 	@Override
 	public String toString() {
 		
-		return "[" + row + ", " + col + "] ";
+//		return "[" + row + ", " + col + "] ";
+		return "[" + id + "] ";
 	}
 }

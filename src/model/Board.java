@@ -8,12 +8,13 @@ public class Board {
 	private int cols;
 	private int ladders;
 	private int snakes;
-	private char[] players;
+	private String players;
 	
 	public Board(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
 		createBoard();
+		numberSquares(0);
 	}
 	
 	public Square getFirst() {
@@ -64,25 +65,25 @@ public class Board {
 		this.snakes = snakes;
 	}
 
-	public char[] getPlayers() {
+	public String getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(char[] players) {
+	public void setPlayers(String players) {
 		this.players = players;
 	}
 
 	private void createBoard() {
 
-		System.out.println("\nMatrix is created");
+//		System.out.println("\nMatrix is created");
 		first =  new Square(0, 0);
-		System.out.println("First square created");
+//		System.out.println("First square created");
 		createRow(0, 0, first);
 	}
 	
 	private void createRow(int r, int c, Square firstCurrentRow) {
 
-		System.out.println("\nCreate row with row: " + r);
+//		System.out.println("\nCreate row with row: " + r);
 //		createCol(r, c + 1, firstCurrentRow, firstCurrentRow.getUp());
 		createCol(r, c + 1, firstCurrentRow, firstCurrentRow.getDown());
 		
@@ -104,7 +105,7 @@ public class Board {
 		
 		if(c < cols) {
 			
-			System.out.println("-Create col with col: " + c);
+//			System.out.println("-Create col with col: " + c);
 			Square current = new Square(r, c);
 			current.setPrev(prev);
 			prev.setNext(current);
@@ -166,15 +167,39 @@ public class Board {
 		return msg;
 	}
 
-	public void add(int n, Square s) {
+	private void numberSquares(int n) {
 		
-	
+//		first.setId(n);
+		
+		if(n <= rows * cols) {
+			
+			numberRow(n + 1, first);
+		}
 	}
-	
-	public String print() {
+
+	private int numberRow(int n, Square firstCurrentRow) {
 		
-		String result = "";
-	
-		return result;
+		System.out.println("\nRow n: " + n); //1
+
+		if(firstCurrentRow != null) {
+			
+			firstCurrentRow.setId(n);
+			n = numberCol(n + 1, firstCurrentRow.getNext());
+		}
+		
+		return n;
+	}
+
+	private int numberCol(int n, Square current) {
+		
+		System.out.println("Col n: " + n);
+		
+		if(current != null) {
+			
+			current.setId(n);
+			n = numberCol(n + 1, current.getNext());
+		}
+		
+		return n;
 	}
 }

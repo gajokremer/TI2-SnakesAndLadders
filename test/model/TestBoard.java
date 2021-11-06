@@ -15,7 +15,7 @@ class TestBoard {
 	
 	public void setUpScenario1() {
 		
-//		board = new Board();
+		board = new Board(4, 4);
 	}
 	
 	@Test
@@ -23,5 +23,7 @@ class TestBoard {
 		
 		setUpScenario1();
 		
+		assertTrue(board.getLast().getRow() == 3);
+		assertTrue(board.getLast().getCol() == 3);
 	}
 }
