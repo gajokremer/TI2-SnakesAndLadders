@@ -180,11 +180,17 @@ public class Board {
 	private int numberRow(int n, Square firstCurrentRow) {
 		
 		System.out.println("\nRow n: " + n); //1
-
+		
 		if(firstCurrentRow != null) {
 			
 			firstCurrentRow.setId(n);
+			
+//			boolean b = firstCurrentRow.getNext() == null;
+			
 			n = numberCol(n + 1, firstCurrentRow.getNext());
+			firstCurrentRow = getLastOfRow(firstCurrentRow);
+			System.out.println("Last of row: " + firstCurrentRow.toString());
+			n = numberRow(n, firstCurrentRow.getUp());
 		}
 		
 		return n;
@@ -201,5 +207,43 @@ public class Board {
 		}
 		
 		return n;
+	}
+	
+	private Square getLastOfRow(Square current) {
+		
+		if(current.getNext() == null) {
+			
+			current = findLastLeft(current);
+			
+		} else if(current.getPrev() == null) {
+			
+			current = findLastRight(current);
+		}
+		
+		return current;
+	}
+	
+	private Square findLastLeft(Square current) {
+		
+		if(current.getPrev() != null) {
+			
+//			current = current.getNext();
+			current = findLastLeft(current.getPrev());
+//			System.out.println("Last of row: " + current.toString());
+		}
+		
+		return current;
+	}
+	
+	private Square findLastRight(Square current) {
+		
+		if(current.getNext() != null) {
+			
+//			current = current.getNext();
+			current = findLastRight(current.getNext());
+//			System.out.println("Last of row: " + current.toString());
+		}
+		
+		return current;
 	}
 }
