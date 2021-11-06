@@ -48,6 +48,7 @@ public class Menu {
 
 			case 2:
 				System.out.println(board);
+				System.out.println("Last: " + board.getLast());
 				mainMenu();
 				break;
 				
@@ -90,5 +91,7 @@ public class Menu {
 		board = new Board(4, 4);
 		
 		System.out.println(board);
+		
+		System.out.println("Last: " + board.getLast());
 	}
 }
