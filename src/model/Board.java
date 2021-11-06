@@ -134,7 +134,9 @@ public class Board {
 		String msg = "";
 		
 //		msg = toStringRow(first);
-		msg = toStringRow(last);
+//		msg = toStringRow(last);
+		Square firstOfRow = getLastOfRow(last);
+		msg = toStringRow(firstOfRow);
 		
 		return msg;
 	}
@@ -160,8 +162,8 @@ public class Board {
 		if(current != null) {
 			
 			msg += current.toString();
-//			msg += toStringCol(current.getNext());
-			msg += toStringCol(current.getPrev());
+			msg += toStringCol(current.getNext());
+//			msg += toStringCol(current.getPrev());
 		}
 		
 		return msg;
@@ -179,7 +181,7 @@ public class Board {
 
 	private int numberRow(int n, Square firstCurrentRow) {
 		
-		System.out.println("\nRow n: " + n); //1
+//		System.out.println("\nRow n: " + n); //1
 		
 		if(firstCurrentRow != null) {
 			
@@ -197,7 +199,7 @@ public class Board {
 			}
 			
 			firstCurrentRow = getLastOfRow(firstCurrentRow);
-			System.out.println("Last of row: " + firstCurrentRow.toString());
+//			System.out.println("Last of row: " + firstCurrentRow.toString());
 			n = numberRow(n, firstCurrentRow.getUp());
 		}
 		
@@ -206,7 +208,7 @@ public class Board {
 
 	private int numberCol(int n, Square current, boolean b) {
 		
-		System.out.println("Col n: " + n);
+//		System.out.println("Col n: " + n);
 		
 		if(current != null) {
 			
