@@ -272,8 +272,11 @@ public class Board {
 		
 		int limit = (rows * cols) - 1;
 		
-		createSnakes(s, limit, 'A');
-		createLadders(l, limit, 1);
+		if(s * 2 + l * 2 < rows * cols) {
+			
+			createSnakes(s, limit, 'A');
+			createLadders(l, limit, 1);
+		}
 	}
 
 	private void createSnakes(int s, int limit, int connectionId) {
@@ -416,7 +419,7 @@ public class Board {
 		return msg;
 	}
 	
-	private Square findSquare(int n) {
+	public Square findSquare(int n) {
 		
 		Square s = null;
 		
@@ -467,5 +470,19 @@ public class Board {
 		}
 		
 		return current;
+	}
+
+	public void move() {
+
+		dice();
+	}
+	
+	private int dice() {
+
+		int d = (int) (Math.random() * (6 - 1) + 1);
+		
+		System.out.println("Dice: " + d);
+		
+		return d;
 	}
 }

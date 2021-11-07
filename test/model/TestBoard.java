@@ -18,6 +18,11 @@ class TestBoard {
 		board = new Board(6, 6, 2, 2, "@#");
 	}
 	
+	public void setUpScenario2() {
+
+		board = new Board(7, 10, 3, 4, "&#*");
+	}
+	
 	@Test
 	public void testAdd() {
 		
@@ -34,13 +39,30 @@ class TestBoard {
 		
 		int total = (board.getRows() * board.getCols()) - 1;
 		
-		int i = (int) (Math.random() * (total - 2) + 2);
-		int j = (int) (Math.random() * (total - 2) + 2);
+		System.out.println("\n" + board);
 		
-		assertNotEquals(i, 1);
-		assertNotEquals(i, total - 1);
-		assertNotEquals(j, 1);
-		assertNotEquals(j, total - 1);
+		int i = (int) (Math.random() * (total - 2) + 2);
+		Square a = board.findSquare(i);
+		Square b = a.getJump();
+		
+		boolean o = a.hasConnection();
+		
+		if(a.hasConnection()) {
+			
+			assertTrue(a.getJump() == b);
+			
+		} else {
+			
+			System.out.println(o);
+			assertFalse(a.getJump() != null);
+		}
+		
+//		int j = (int) (Math.random() * (total - 2) + 2);
+//		
+//		assertNotEquals(i, 1);
+//		assertNotEquals(i, total - 1);
+//		assertNotEquals(j, 1);
+//		assertNotEquals(j, total - 1);
 	}
 	
 	@Test
@@ -50,5 +72,15 @@ class TestBoard {
 		
 		assertTrue(board.getFirst().getPlayers() != null);
 		assertEquals(2,board.getFirst().getPlayers().length());
+	}
+	
+	@Test
+	public void testDice() {
+
+		setUpScenario2();
+		
+		int d = (int) (Math.random() * (6 - 1) + 1);
+		
+		assertFalse(d == 0);
 	}
 }

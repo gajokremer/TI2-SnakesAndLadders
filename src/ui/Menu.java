@@ -87,6 +87,7 @@ public class Menu {
 		board = new Board(rows, cols, snakes, ladders, players);
 		
 		System.out.println("\n" + board);
+		sc.nextLine(); //Enter before starting
 		
 		gameMenu();
 	}
@@ -96,17 +97,20 @@ public class Menu {
 		board = new Board(6, 6, 2, 2, "@#");
 		
 		System.out.println("\n" + board);
-		System.out.println("\n" + board.printClean());
+		gameMenu();
 		
-		System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
-		System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
+//		System.out.println("\n" + board);
+//		System.out.println("\n" + board.printClean());
+//		
+//		System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
+//		System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
 	}
 	
 	public void gameMenu() {
 		
 		String option = "";
 
-		System.out.println("\n\n--------GAME MENU--------\n");
+		System.out.println("\n--------GAME MENU--------\n");
 
 //		System.out.println(
 //				"\nSelect an option:\n" + 
@@ -115,13 +119,12 @@ public class Menu {
 //
 //				"\n(0) to exit");
 
+		System.out.println(board.printClean());
+		
 		option = sc.nextLine();
 		option.toLowerCase();
 		
-		System.out.println(board.printClean());
-		
-		
-		if(option != "menu") {
+		if(option != null) {
 
 			switch(option) {
 
@@ -129,11 +132,20 @@ public class Menu {
 				System.out.println("\n---Invalid Option");
 				gameMenu();;
 				break;
+				
+			case "menu":
+				break;
+				
+			case "num":
+				System.out.println("\n" + board);
+				gameMenu();
+				break;
+				
+			case "":
+				board.move();
+				gameMenu();
+				break;
 			} 
-
-		} else if(option == "menu") {
-
-			System.out.println("\n-----OPERATION ENDED-----\n");
 		}
 	}
 }
