@@ -269,23 +269,80 @@ public class Board {
 		
 		int limit = (rows * cols) - 1;
 		
+		s = s * 2;
+		l = l * 2;
+		
 		createSnakes(s, limit);
 		createLadders(l, limit);
 	}
 
 	private void createSnakes(int s, int limit) {
 		
-		int i = (int) (Math.random() * (limit - 2) + 2);
-		
-		createSnakes(s - 1, limit);
-		
-//		System.out.println("Random i: " + i);
-//		System.out.println("Random i: " + j);
-		
-		
+		if(s > 0) {
+			
+			int i = (int) (Math.random() * (limit - 2) + 2);
+			System.out.println("Random i: " + i);
+			Square a = findSquare(i);
+			System.out.println("A: " + a);
+			
+			createSnakes(s - 1, limit);
+		}
 	}
 	
 	private void createLadders(int l, int limit) {
 		
+	}
+	
+	private Square findSquare(int n) {
+		
+		Square s = null;
+		
+		if(first != null) {
+			
+//			System.out.println("\n" + first);;
+			s = findRow(n, first, first);
+		}
+		
+		return s;
+	}
+	
+	private Square findRow(int n, Square firstCurrentRow, Square current) {
+		
+//		System.out.println("-" + firstCurrentRow);
+		
+		if(firstCurrentRow != null) {
+			
+			if(firstCurrentRow.getId() != n) {
+				
+				current = findCol(n, firstCurrentRow.getNext());
+				
+//				System.out.println("=" + current + ", " + n);
+				
+				if(current.getId() != n) {
+					
+					current = findRow(n, firstCurrentRow.getUp(), firstCurrentRow.getUp());
+				}
+			}
+		}
+		
+		return current;	
+	}
+
+	private Square findCol(int n, Square current) {
+		
+//		System.out.println("--" + current);
+		
+		if(current != null) {
+			
+			if(current.getId() != n) {
+				
+				if(current.getNext() != null) {
+					
+					current = findCol(n, current.getNext());
+				} 
+			}				
+		}
+		
+		return current;
 	}
 }
