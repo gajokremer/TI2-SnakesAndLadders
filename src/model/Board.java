@@ -328,11 +328,53 @@ public class Board {
 	
 	private void createLadders(int l, int limit, int connectionId) {
 		
+		if(l > 0) {
+			
+			int i = (int) (Math.random() * (limit - 2) + 2);
+			System.out.println("\nRandom i: " + i);
+			Square a = findSquare(i);
+			System.out.println("A: " + a);
+			
+			int j = (int) (Math.random() * (limit - 2) + 2);
+			System.out.println("Random j: " + j);
+			Square b = findSquare(j);
+			System.out.println("B: " + b);
+			
+			if(a.hasConnection() || b.hasConnection()) {
+				
+				createLadders(l, limit, connectionId);
+				
+			} else if(a.getRow() == b.getRow()) {
+				
+				createLadders(l, limit, connectionId);
+				
+			} else {
+				
+				linkLadders(a, b, connectionId);
+				createLadders(l - 1, limit, connectionId + 1);
+			}
+		}
 	}
 	
-	private void linkLadders() {
+	private void linkLadders(Square a, Square b, int connectionId) {
 
+		boolean aIsBigger = a.getId() > b.getId();
 		
+		if(aIsBigger) {
+			
+			b.setJump(a);
+			
+		} else {
+			
+			a.setJump(b);
+		}
+		
+		String cId = String.valueOf(connectionId);
+		
+		a.setConnection(true);
+		a.setConnectionId(cId);
+		b.setConnection(true);
+		b.setConnectionId(cId);
 	}
 	
 	public String printSnakesAndLadders() {
