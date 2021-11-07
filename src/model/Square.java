@@ -2,6 +2,9 @@ package model;
 
 public class Square {
 	
+private static final String ANSI_RED = "\u001B[31m";
+private static final String ANSI_RESET = "\u001B[0m";
+	
 	private int id;
 	private int row;
 	private int col;
@@ -14,6 +17,8 @@ public class Square {
 	
 	private boolean connection;
 	private String connectionId;
+	
+	private String players;
 	
 	public Square(int row, int col) {
 //		this.id = id;
@@ -101,6 +106,14 @@ public class Square {
 		this.connectionId = connectionId;
 	}
 
+	public String getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(String players) {
+		this.players = players;
+	}
+
 	public String getCoordinates() {
 		
 		return "[" + row + ", " + col + "] ";
@@ -108,20 +121,39 @@ public class Square {
 	
 	public String getSquareConnection() {
 		
-		if(connectionId == null) {
+		String result = "";
+		
+		result += "[ ";
+		
+		if(connectionId != null) {
 			
-			return "[ " + "]";
+			result = "[";
+			result += connectionId;
+		} 
+		
+		if(players != null) {
 			
-		} else {
-			
-			return "[" + connectionId + "]";
+			result += players;
 		}
+		
+		result += "]";
+		
+		return result;
 	}
 	
 	@Override
 	public String toString() {
 		
-//		return "[" + row + ", " + col + "] ";
-		return "[" + id + "] ";
+		if(connectionId == null) {
+			
+			return "[" + id + "] ";
+			
+		} else {
+			
+//			return "[" + id + ANSI_RED + connectionId + ANSI_RESET + "] ";
+			return "[" + id + "-" + connectionId + "] ";
+		}
+		
+//		return "[" + id + "] ";
 	}
 }

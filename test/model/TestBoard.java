@@ -15,7 +15,7 @@ class TestBoard {
 	
 	public void setUpScenario1() {
 		
-		board = new Board(6, 6, 2, 2);
+		board = new Board(6, 6, 2, 2, "@#");
 	}
 	
 	@Test
@@ -41,5 +41,14 @@ class TestBoard {
 		assertNotEquals(i, total - 1);
 		assertNotEquals(j, 1);
 		assertNotEquals(j, total - 1);
+	}
+	
+	@Test
+	public void testCreateLadders(){
+		
+		setUpScenario1();
+		
+		assertTrue(board.getFirst().getPlayers() != null);
+		assertEquals(2,board.getFirst().getPlayers().length());
 	}
 }

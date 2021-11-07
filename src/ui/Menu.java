@@ -3,12 +3,13 @@ package ui;
 import java.util.Scanner;
 
 import model.Board;
-import model.Square;
 
 public class Menu {
 	
 	private Board board;
 	private Scanner sc;
+	
+	public static final String ANSI_RED = "\u001B[31m";
 	
 	public Menu() {
 		
@@ -24,8 +25,8 @@ public class Menu {
 
 		System.out.println(
 				"\nSelect an option:\n" + 
-						"(1) to Play\n" + 
-						"(2) to print Board" +
+						"(1) to Play" + 
+//						"(2) to print Board" +
 
 				"\n(0) to exit");
 
@@ -72,10 +73,10 @@ public class Menu {
 		
 		String[] a = input.split(" ");
 		
-		for(int i = 0; i < a.length; i++) {
-			
-			System.out.println(a[i]);
-		}
+//		for(int i = 0; i < a.length; i++) {
+//			
+//			System.out.println(a[i]);
+//		}
 		
 		int rows = Integer.parseInt(a[0]);
 		int cols = Integer.parseInt(a[1]);
@@ -83,19 +84,56 @@ public class Menu {
 		int ladders = Integer.parseInt(a[3]);
 		String players = a[4];
 		
-		board = new Board(rows, cols, snakes, ladders);
+		board = new Board(rows, cols, snakes, ladders, players);
 		
-		System.out.println(board.printSnakesAndLadders());
+		System.out.println("\n" + board);
+		
+		gameMenu();
 	}
 	
 	public void test() {
 		
-		board = new Board(6, 6, 2, 2);
+		board = new Board(6, 6, 2, 2, "@#");
 		
 		System.out.println("\n" + board);
-		System.out.println("\n" + board.printSnakesAndLadders());
+		System.out.println("\n" + board.printClean());
 		
 		System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
 		System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
+	}
+	
+	public void gameMenu() {
+		
+		String option = "";
+
+		System.out.println("\n\n--------GAME MENU--------\n");
+
+//		System.out.println(
+//				"\nSelect an option:\n" + 
+//						"(1) to Play" + 
+//						"(2) to print Board" +
+//
+//				"\n(0) to exit");
+
+		option = sc.nextLine();
+		option.toLowerCase();
+		
+		System.out.println(board.printClean());
+		
+		
+		if(option != "menu") {
+
+			switch(option) {
+
+			default:
+				System.out.println("\n---Invalid Option");
+				gameMenu();;
+				break;
+			} 
+
+		} else if(option == "menu") {
+
+			System.out.println("\n-----OPERATION ENDED-----\n");
+		}
 	}
 }

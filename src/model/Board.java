@@ -10,12 +10,14 @@ public class Board {
 	private int ladders;
 	private String players;
 	
-	public Board(int rows, int cols, int snakes, int ladders) {
+	public Board(int rows, int cols, int snakes, int ladders, String players) {
 		this.rows = rows;
 		this.cols = cols;
 		createBoard();
 		numberSquares(0);
 		createSnakesAndLadders(snakes, ladders);
+		this.setPlayers(players);
+		first.setPlayers(players);
 	}
 	
 	public Square getFirst() {
@@ -161,6 +163,7 @@ public class Board {
 		
 		if(current != null) {
 			
+//			msg += current.toString();
 			msg += current.toString();
 			msg += toStringCol(current.getNext());
 //			msg += toStringCol(current.getPrev());
@@ -278,14 +281,14 @@ public class Board {
 		if(s > 0) {
 			
 			int i = (int) (Math.random() * (limit - 2) + 2);
-			System.out.println("\nRandom i: " + i);
+//			System.out.println("\nRandom i: " + i);
 			Square a = findSquare(i);
-			System.out.println("A: " + a);
+//			System.out.println("A: " + a);
 			
 			int j = (int) (Math.random() * (limit - 2) + 2);
-			System.out.println("Random j: " + j);
+//			System.out.println("Random j: " + j);
 			Square b = findSquare(j);
-			System.out.println("B: " + b);
+//			System.out.println("B: " + b);
 			
 			if(a.hasConnection() || b.hasConnection()) {
 				
@@ -323,6 +326,7 @@ public class Board {
 		a.setConnectionId(cId);
 		b.setConnection(true);
 		b.setConnectionId(cId);
+		
 	}
 
 	
@@ -331,14 +335,14 @@ public class Board {
 		if(l > 0) {
 			
 			int i = (int) (Math.random() * (limit - 2) + 2);
-			System.out.println("\nRandom i: " + i);
+//			System.out.println("\nRandom i: " + i);
 			Square a = findSquare(i);
-			System.out.println("A: " + a);
+//			System.out.println("A: " + a);
 			
 			int j = (int) (Math.random() * (limit - 2) + 2);
-			System.out.println("Random j: " + j);
+//			System.out.println("Random j: " + j);
 			Square b = findSquare(j);
-			System.out.println("B: " + b);
+//			System.out.println("B: " + b);
 			
 			if(a.hasConnection() || b.hasConnection()) {
 				
@@ -377,36 +381,36 @@ public class Board {
 		b.setConnectionId(cId);
 	}
 	
-	public String printSnakesAndLadders() {
+	public String printClean() {
 		
 		String msg = "";
 		
-		msg = rowSnakesAndLadders(last);
+		msg = rowClean(last);
 		
 		return msg;
 	}
 
-	private String rowSnakesAndLadders(Square firstCurrentRow) {
+	private String rowClean(Square firstCurrentRow) {
 		
 		String msg = "";
 		
 		if(firstCurrentRow != null) {
 			
-			msg = colSnakesAndLadders(firstCurrentRow) + "\n";
-			msg += rowSnakesAndLadders(firstCurrentRow.getDown());
+			msg = colClean(firstCurrentRow) + "\n";
+			msg += rowClean(firstCurrentRow.getDown());
 		}
 		
 		return msg;
 	}
 
-	private String colSnakesAndLadders(Square current) {
+	private String colClean(Square current) {
 		
 		String msg = "";
 		
 		if(current != null) {
 			
 			msg += current.getSquareConnection() + " ";
-			msg += colSnakesAndLadders(current.getNext());
+			msg += colClean(current.getNext());
 		}
 		
 		return msg;

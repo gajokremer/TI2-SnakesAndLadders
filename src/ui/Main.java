@@ -1,9 +1,5 @@
 package ui;
 
-import java.util.Scanner;
-
-import model.Board;
-import model.Square;
 
 public class Main {
 	
