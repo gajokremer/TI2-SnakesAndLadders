@@ -4,11 +4,15 @@ public class Board {
 
 	private Square first;
 	private Square last;
+	
 	private int rows;
 	private int cols;
 	private int snakes;
 	private int ladders;
+	
 	private String players;
+	private String playingNow;
+	private int playerPos;
 	
 	public Board(int rows, int cols, int snakes, int ladders, String players) {
 		this.rows = rows;
@@ -18,6 +22,8 @@ public class Board {
 		createSnakesAndLadders(snakes, ladders);
 		this.setPlayers(players);
 		first.setPlayers(players);
+		setPlayingNow(String.valueOf(players.charAt(0)));
+		setPlayerPos(0);
 	}
 	
 	public Square getFirst() {
@@ -74,6 +80,22 @@ public class Board {
 
 	public void setPlayers(String players) {
 		this.players = players;
+	}
+
+	public String getPlayingNow() {
+		return playingNow;
+	}
+
+	public void setPlayingNow(String playingNow) {
+		this.playingNow = playingNow;
+	}
+
+	public int getPlayerPos() {
+		return playerPos;
+	}
+
+	public void setPlayerPos(int playerPos) {
+		this.playerPos = playerPos;
 	}
 
 	private void createBoard() {
@@ -471,10 +493,95 @@ public class Board {
 		
 		return current;
 	}
+	
+	public Square findPlayerSquare(String player) {
+		
+		Square s = null;
+		
+		if(first != null) {
+			
+//			System.out.println("\n" + first);;
+			s = findPlayerRow(player, first, first);
+		}
+		
+		return s;
+	}
+	
+	private Square findPlayerRow(String player, Square firstCurrentRow, Square current) {
+		
+//		System.out.println("-" + firstCurrentRow);
+		
+		if(firstCurrentRow != null) {
+			
+			if(!readSquareString(player, firstCurrentRow, 0)) {
+				
+				current = findPlayerCol(player, firstCurrentRow.getNext());
+			}
+		}
+		
+		return current;	
+	}
+	
+	private Square findPlayerCol(String players, Square current) {
+		
+//		System.out.println("--" + current);
+		
+		if(current != null) {
+			
+		}
+		
+		return current;
+	}
+	
+	private boolean readSquareString(String player, Square current, int pos) {
+		
+		boolean isHere = false;
+		
+		if(pos < current.getPlayers().length()) {
+			
+		System.out.println("--" + current.getPlayers().charAt(pos));
+
+		String s = String.valueOf(current.getPlayers().charAt(pos));
+		
+			if(!s.equalsIgnoreCase(player)) {			
+				
+				readSquareString(player, current, pos + 1);
+				
+			} else {
+				
+				isHere = true;
+			}
+		}
+		
+		return isHere;
+//		return current;
+	}
+	
+	public void nextTurn(int n) {
+		
+		n = n + 1;
+		
+		if(n < players.length()) {
+			
+			String player = String.valueOf(players.charAt(n));
+			
+			setPlayingNow(player);
+			setPlayerPos(n);
+			
+		} else {
+			
+			setPlayingNow(String.valueOf(players.charAt(0)));
+			setPlayerPos(0);
+		}
+		
+	}
 
 	public void move() {
-
-		dice();
+		
+		nextTurn(playerPos);
+		
+		int d  = dice();
+		
 	}
 	
 	private int dice() {
