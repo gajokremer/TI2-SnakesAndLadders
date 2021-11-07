@@ -93,6 +93,7 @@ public class Menu {
 		board = new Board(6, 6, 2, 2);
 		
 		System.out.println("\n" + board);
+		System.out.println("\n" + board.printSnakesAndLadders());
 		
 		System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
 		System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());

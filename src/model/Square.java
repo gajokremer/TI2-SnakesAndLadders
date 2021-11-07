@@ -13,7 +13,7 @@ public class Square {
 	private Square jump;
 	
 	private boolean connection;
-	private int connectionId;
+	private String connectionId;
 	
 	public Square(int row, int col) {
 //		this.id = id;
@@ -93,11 +93,11 @@ public class Square {
 		this.connection = connection;
 	}
 
-	public int getConnectionId() {
+	public String getConnectionId() {
 		return connectionId;
 	}
 
-	public void setConnectionId(int connectionId) {
+	public void setConnectionId(String connectionId) {
 		this.connectionId = connectionId;
 	}
 
@@ -108,7 +108,14 @@ public class Square {
 	
 	public String getSquareConnection() {
 		
-		return "[" + connectionId + "]";
+		if(connectionId == null) {
+			
+			return "[ " + "]";
+			
+		} else {
+			
+			return "[" + connectionId + "]";
+		}
 	}
 	
 	@Override

@@ -269,9 +269,6 @@ public class Board {
 		
 		int limit = (rows * cols) - 1;
 		
-//		s = s * 2;
-//		l = l * 2;
-		
 		createSnakes(s, limit, 'A');
 		createLadders(l, limit, 1);
 	}
@@ -291,6 +288,10 @@ public class Board {
 			System.out.println("B: " + b);
 			
 			if(a.hasConnection() || b.hasConnection()) {
+				
+				createSnakes(s, limit, connectionId);
+				
+			} else if(a.getRow() == b.getRow()) {
 				
 				createSnakes(s, limit, connectionId);
 				
@@ -315,10 +316,13 @@ public class Board {
 			b.setJump(a);
 		}
 		
+		char c = Character.valueOf((char) connectionId);
+		String cId = String.valueOf(c);
+		
 		a.setConnection(true);
-		a.setConnectionId(connectionId);
+		a.setConnectionId(cId);
 		b.setConnection(true);
-		b.setConnectionId(connectionId);
+		b.setConnectionId(cId);
 	}
 
 	
@@ -359,7 +363,7 @@ public class Board {
 		
 		if(current != null) {
 			
-			msg += current.getSquareConnection();
+			msg += current.getSquareConnection() + " ";
 			msg += colSnakesAndLadders(current.getNext());
 		}
 		
