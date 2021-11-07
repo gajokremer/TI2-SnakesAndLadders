@@ -269,28 +269,101 @@ public class Board {
 		
 		int limit = (rows * cols) - 1;
 		
-		s = s * 2;
-		l = l * 2;
+//		s = s * 2;
+//		l = l * 2;
 		
-		createSnakes(s, limit);
-		createLadders(l, limit);
+		createSnakes(s, limit, 'A');
+		createLadders(l, limit, 1);
 	}
 
-	private void createSnakes(int s, int limit) {
+	private void createSnakes(int s, int limit, int connectionId) {
 		
 		if(s > 0) {
 			
 			int i = (int) (Math.random() * (limit - 2) + 2);
-			System.out.println("Random i: " + i);
+			System.out.println("\nRandom i: " + i);
 			Square a = findSquare(i);
 			System.out.println("A: " + a);
 			
-			createSnakes(s - 1, limit);
+			int j = (int) (Math.random() * (limit - 2) + 2);
+			System.out.println("Random j: " + j);
+			Square b = findSquare(j);
+			System.out.println("B: " + b);
+			
+			if(a.hasConnection() || b.hasConnection()) {
+				
+				createSnakes(s, limit, connectionId);
+				
+			} else {
+				
+				linkSnakes(a, b, connectionId);
+				createSnakes(s - 1, limit, connectionId + 1);
+			}
 		}
 	}
 	
-	private void createLadders(int l, int limit) {
+	private void linkSnakes(Square a, Square b, int connectionId) {
+
+		boolean aIsBigger = a.getId() > b.getId();
 		
+		if(aIsBigger) {
+			
+			a.setJump(b);
+			
+		} else {
+			
+			b.setJump(a);
+		}
+		
+		a.setConnection(true);
+		a.setConnectionId(connectionId);
+		b.setConnection(true);
+		b.setConnectionId(connectionId);
+	}
+
+	
+	private void createLadders(int l, int limit, int connectionId) {
+		
+	}
+	
+	private void linkLadders() {
+
+		
+	}
+	
+	public String printSnakesAndLadders() {
+		
+		String msg = "";
+		
+		msg = rowSnakesAndLadders(last);
+		
+		return msg;
+	}
+
+	private String rowSnakesAndLadders(Square firstCurrentRow) {
+		
+		String msg = "";
+		
+		if(firstCurrentRow != null) {
+			
+			msg = colSnakesAndLadders(firstCurrentRow) + "\n";
+			msg += rowSnakesAndLadders(firstCurrentRow.getDown());
+		}
+		
+		return msg;
+	}
+
+	private String colSnakesAndLadders(Square current) {
+		
+		String msg = "";
+		
+		if(current != null) {
+			
+			msg += current.getSquareConnection();
+			msg += colSnakesAndLadders(current.getNext());
+		}
+		
+		return msg;
 	}
 	
 	private Square findSquare(int n) {

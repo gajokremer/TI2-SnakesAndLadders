@@ -10,9 +10,10 @@ public class Square {
 	private Square prev;
 	private Square up;
 	private Square down;
+	private Square jump;
 	
 	private boolean connection;
-	private String connectionId;
+	private int connectionId;
 	
 	public Square(int row, int col) {
 //		this.id = id;
@@ -76,7 +77,15 @@ public class Square {
 		this.down = down;
 	}
 	
-	public boolean isConnection() {
+	public Square getJump() {
+		return jump;
+	}
+
+	public void setJump(Square jump) {
+		this.jump = jump;
+	}
+
+	public boolean hasConnection() {
 		return connection;
 	}
 
@@ -84,17 +93,22 @@ public class Square {
 		this.connection = connection;
 	}
 
-	public String getConnectionId() {
+	public int getConnectionId() {
 		return connectionId;
 	}
 
-	public void setConnectionId(String connectionId) {
+	public void setConnectionId(int connectionId) {
 		this.connectionId = connectionId;
 	}
 
 	public String getCoordinates() {
 		
 		return "[" + row + ", " + col + "] ";
+	}
+	
+	public String getSquareConnection() {
+		
+		return "[" + connectionId + "]";
 	}
 	
 	@Override

@@ -85,7 +85,7 @@ public class Menu {
 		
 		board = new Board(rows, cols, snakes, ladders);
 		
-//		System.out.println(board);
+		System.out.println(board.printSnakesAndLadders());
 	}
 	
 	public void test() {
