@@ -94,7 +94,7 @@ public class Menu {
 	
 	public void test() {
 		
-		board = new Board(6, 6, 2, 2, "@#$");
+		board = new Board(4, 4, 1, 1, "@");
 		
 		System.out.println("\n" + board);
 		gameMenu();
@@ -142,8 +142,8 @@ public class Menu {
 				break;
 				
 			case "":
-				System.out.println("Player: " + board.getPlayingNow() + ", " + board.getPlayerPos());
 				board.move();
+				System.out.println("Player: " + board.getPlayingNow() + ", " + board.getPlayerPos());
 				gameMenu();
 				break;
 			} 

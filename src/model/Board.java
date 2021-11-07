@@ -1,5 +1,7 @@
 package model;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 public class Board {
 
 	private Square first;
@@ -22,8 +24,8 @@ public class Board {
 		createSnakesAndLadders(snakes, ladders);
 		this.setPlayers(players);
 		first.setPlayers(players);
-		setPlayingNow(String.valueOf(players.charAt(0)));
-		setPlayerPos(0);
+		setPlayingNow(null);
+		setPlayerPos(-1);
 	}
 	
 	public Square getFirst() {
@@ -504,6 +506,8 @@ public class Board {
 			s = findPlayerRow(player, first, first);
 		}
 		
+		System.out.println("S: " + s);
+		
 		return s;
 	}
 	
@@ -513,9 +517,11 @@ public class Board {
 		
 		if(firstCurrentRow != null) {
 			
+			System.out.println("Read on Row");
 			if(!readSquareString(player, firstCurrentRow, 0)) {
 				
 				current = findPlayerCol(player, firstCurrentRow.getNext());
+				current = findPlayerRow(player, firstCurrentRow.getUp(), current);
 			}
 		}
 		
@@ -528,6 +534,11 @@ public class Board {
 		
 		if(current != null) {
 			
+			System.out.println("Read on Col");
+			if(!readSquareString(players, current, 0)) {
+				
+				current = findPlayerCol(players, current.getNext());
+			}
 		}
 		
 		return current;
@@ -537,19 +548,31 @@ public class Board {
 		
 		boolean isHere = false;
 		
-		if(pos < current.getPlayers().length()) {
-			
-		System.out.println("--" + current.getPlayers().charAt(pos));
-
-		String s = String.valueOf(current.getPlayers().charAt(pos));
+		System.out.println("Current: " + current);
+		System.out.println("Pos: " + pos);
 		
-			if(!s.equalsIgnoreCase(player)) {			
+		if(current != null) {
+			
+			if(current.getPlayers() != null) {
 				
-				readSquareString(player, current, pos + 1);
-				
-			} else {
-				
-				isHere = true;
+				if(pos < current.getPlayers().length()) {
+					
+					System.out.println("-" + current.getPlayers());
+					System.out.println("--" + current.getPlayers().charAt(pos));
+					
+					String s = String.valueOf(current.getPlayers().charAt(pos));
+					
+					System.out.println("---" + s.equalsIgnoreCase(player));
+					
+					if(!s.equalsIgnoreCase(player)) {			
+						
+						readSquareString(player, current, pos + 1);
+						
+					} else {
+						
+						isHere = true;
+					}
+				}
 			}
 		}
 		
@@ -582,6 +605,23 @@ public class Board {
 		
 		int d  = dice();
 		
+		Square origin = findPlayerSquare(playingNow);
+		
+		System.out.println("Origin: " + origin);
+		
+		Square destiny = findSquare(origin.getId() + d);
+		
+		
+		origin.setPlayers("");
+		destiny.setPlayers(playingNow);
+		
+//		destiny.setPlayers(playingNow);
+//		origin.setPlayers(getPlayers().replace(playingNow, ""));
+//		
+		System.out.println("Origin: " + origin);
+		System.out.println("Destiny: " + destiny);
+		
+//		movePlayer(d, playingNow, origin);
 	}
 	
 	private int dice() {
@@ -591,5 +631,13 @@ public class Board {
 		System.out.println("Dice: " + d);
 		
 		return d;
+	}
+	
+	private void movePlayer(int d, String player, Square s) {
+
+		if(d > 0) {
+			
+			
+		}
 	}
 }
