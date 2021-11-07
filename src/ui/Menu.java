@@ -48,8 +48,8 @@ public class Menu {
 
 			case 2:
 				System.out.println(board);
-				System.out.println("First: " + board.getFirst());
-				System.out.println("Last: " + board.getLast());
+				System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
+				System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
 				mainMenu();
 				break;
 				
@@ -79,23 +79,22 @@ public class Menu {
 		
 		int rows = Integer.parseInt(a[0]);
 		int cols = Integer.parseInt(a[1]);
-				
-//		char[] p = a[4].toCharArray();
-		
+		int snakes = Integer.parseInt(a[2]);
+		int ladders = Integer.parseInt(a[3]);
 		String players = a[4];
 		
-		board = new Board(rows, cols);
+		board = new Board(rows, cols, snakes, ladders);
 		
 //		System.out.println(board);
 	}
 	
 	public void test() {
 		
-		board = new Board(4, 4);
+		board = new Board(6, 6, 2, 2);
 		
-		System.out.println(board);
+		System.out.println("\n" + board);
 		
-		System.out.println("First: " + board.getFirst());
-		System.out.println("Last: " + board.getLast());
+		System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
+		System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
 	}
 }

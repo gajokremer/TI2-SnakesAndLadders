@@ -15,7 +15,7 @@ class TestBoard {
 	
 	public void setUpScenario1() {
 		
-		board = new Board(4, 4);
+		board = new Board(6, 6, 2, 2);
 	}
 	
 	@Test
@@ -23,7 +23,23 @@ class TestBoard {
 		
 		setUpScenario1();
 		
-		assertTrue(board.getLast().getRow() == 3);
-		assertTrue(board.getLast().getCol() == 3);
+		assertTrue(board.getLast().getRow() == 5);
+		assertTrue(board.getLast().getCol() == 0);
+	}
+	
+	@Test
+	public void testCreateSnakes() {
+		
+		setUpScenario1();
+		
+		int total = (board.getRows() * board.getCols()) - 1;
+		
+		int i = (int) (Math.random() * (total - 2) + 2);
+		int j = (int) (Math.random() * (total - 2) + 2);
+		
+		assertNotEquals(i, 1);
+		assertNotEquals(i, total - 1);
+		assertNotEquals(j, 1);
+		assertNotEquals(j, total - 1);
 	}
 }

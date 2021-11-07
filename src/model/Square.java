@@ -11,7 +11,8 @@ public class Square {
 	private Square up;
 	private Square down;
 	
-	private boolean relation;
+	private boolean connection;
+	private String connectionId;
 	
 	public Square(int row, int col) {
 //		this.id = id;
@@ -75,14 +76,27 @@ public class Square {
 		this.down = down;
 	}
 	
-	public boolean isRelation() {
-		return relation;
+	public boolean isConnection() {
+		return connection;
 	}
 
-	public void setRelation(boolean relation) {
-		this.relation = relation;
+	public void setConnection(boolean connection) {
+		this.connection = connection;
 	}
 
+	public String getConnectionId() {
+		return connectionId;
+	}
+
+	public void setConnectionId(String connectionId) {
+		this.connectionId = connectionId;
+	}
+
+	public String getCoordinates() {
+		
+		return "[" + row + ", " + col + "] ";
+	}
+	
 	@Override
 	public String toString() {
 		

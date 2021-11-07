@@ -6,15 +6,16 @@ public class Board {
 	private Square last;
 	private int rows;
 	private int cols;
-	private int ladders;
 	private int snakes;
+	private int ladders;
 	private String players;
 	
-	public Board(int rows, int cols) {
+	public Board(int rows, int cols, int snakes, int ladders) {
 		this.rows = rows;
 		this.cols = cols;
 		createBoard();
 		numberSquares(0);
+		createSnakesAndLadders(snakes, ladders);
 	}
 	
 	public Square getFirst() {
@@ -49,20 +50,20 @@ public class Board {
 		this.cols = cols;
 	}
 
+	public int getSnakes() {
+		return snakes;
+	}
+	
+	public void setSnakes(int snakes) {
+		this.snakes = snakes;
+	}
+	
 	public int getLadders() {
 		return ladders;
 	}
 
 	public void setLadders(int ladders) {
 		this.ladders = ladders;
-	}
-
-	public int getSnakes() {
-		return snakes;
-	}
-
-	public void setSnakes(int snakes) {
-		this.snakes = snakes;
 	}
 
 	public String getPlayers() {
@@ -121,7 +122,7 @@ public class Board {
 			
 			if(c == cols - 1) {
 				
-				last = current;
+				last = getLastOfRow(current);
 			}
 			
 			createCol(r, c + 1, current, prevRow);
@@ -134,9 +135,8 @@ public class Board {
 		String msg = "";
 		
 //		msg = toStringRow(first);
-//		msg = toStringRow(last);
-		Square firstOfRow = getLastOfRow(last);
-		msg = toStringRow(firstOfRow);
+//		Square firstOfRow = getLastOfRow(last);
+		msg = toStringRow(last);
 		
 		return msg;
 	}
@@ -263,5 +263,29 @@ public class Board {
 		}
 		
 		return current;
+	}
+	
+	private void createSnakesAndLadders(int s, int l) {
+		
+		int limit = (rows * cols) - 1;
+		
+		createSnakes(s, limit);
+		createLadders(l, limit);
+	}
+
+	private void createSnakes(int s, int limit) {
+		
+		int i = (int) (Math.random() * (limit - 2) + 2);
+		
+		createSnakes(s - 1, limit);
+		
+//		System.out.println("Random i: " + i);
+//		System.out.println("Random i: " + j);
+		
+		
+	}
+	
+	private void createLadders(int l, int limit) {
+		
 	}
 }
