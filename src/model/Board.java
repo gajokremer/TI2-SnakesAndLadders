@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 public class Board {
 
 	private Square first;

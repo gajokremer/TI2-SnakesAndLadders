@@ -2,9 +2,9 @@ package model;
 
 public class Square {
 	
-private static final String ANSI_RED = "\u001B[31m";
-private static final String ANSI_CYAN = "\u001B[36m";
-private static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_RESET = "\u001B[0m";
 	
 	private int id;
 	private int row;

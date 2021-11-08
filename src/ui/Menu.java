@@ -58,7 +58,7 @@ public class Menu {
 		}
 	}
 	
-	public void play() {
+	private void play() {
 		
 		System.out.print("\nInput: ");
 		String input = sc.nextLine();
@@ -80,7 +80,7 @@ public class Menu {
 		gameMenu();
 	}
 	
-	public void test() {
+	private void test() {
 		
 		board = new Board(10, 10, 7, 5, "@#$%");
 		
@@ -88,7 +88,7 @@ public class Menu {
 		gameMenu();
 	}
 	
-	public void gameMenu() {
+	private void gameMenu() {
 		
 		String option = "";
 
