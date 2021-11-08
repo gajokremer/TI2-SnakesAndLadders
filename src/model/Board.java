@@ -506,7 +506,7 @@ public class Board {
 			s = findPlayerRow(player, first, first);
 		}
 		
-		System.out.println("S: " + s);
+//		System.out.println("S: " + s);
 		
 		return s;
 	}
@@ -519,8 +519,9 @@ public class Board {
 			
 //			System.out.println("\nRead on Row");
 			
-			boolean b = readSquareString(player, firstCurrentRow, 0);
+//			boolean b = readSquareString(player, firstCurrentRow, 0);
 //			System.out.println("=Boolean: " + b + "\n");
+			
 			if(!readSquareString(player, firstCurrentRow, 0)) {
 				
 				current = findPlayerCol(player, firstCurrentRow.getNext());
@@ -543,8 +544,9 @@ public class Board {
 			
 //			System.out.println("Read on Col");
 			
-			boolean b = readSquareString(player, current, 0);
+//			boolean b = readSquareString(player, current, 0);
 //			System.out.println("==Boolean: " + b + "\n");
+			
 			if(!readSquareString(player, current, 0)) {
 				
 				current = findPlayerCol(player, current.getNext());
@@ -645,25 +647,12 @@ public class Board {
 		
 		Square destiny = findSquare(origin.getId() + d);
 		
-		System.out.println("Destiny: " + destiny)
-		;
+		System.out.println("Destiny: " + destiny);
+		
 		if(origin.getId() + d <= rows * cols) {
 			
-			if(destiny.getId() == rows * cols) {
-				
-				result = "\n--Player " + playingNow + " has won";
-				  
-			} else {
-				
-//				origin.setPlayers("");
-//				destiny.setPlayers(playingNow); 
-				
-				
-				System.out.println(origin.getPlayers());
-				System.out.println(destiny.getPlayers());
-				
-//				System.out.println(origin.getPlayers().replace(playingNow, ""));
-//				System.out.println(destiny.getPlayers().concat(playingNow));
+//				System.out.println(origin.getPlayers());
+//				System.out.println(destiny.getPlayers());
 				
 				origin.setPlayers(origin.getPlayers().replace(playingNow, ""));
 				
@@ -671,17 +660,31 @@ public class Board {
 					
 					destiny.setPlayers(playingNow);
 					
+					if(destiny.getJump() != null) {
+						
+						makeJump(playingNow, destiny);
+					}
+					
 				} else {
 					
 					destiny.setPlayers(destiny.getPlayers().concat(playingNow));
+					
+					if(destiny.getJump() != null) {
+						
+						makeJump(playingNow, destiny);
+					}
 				}
-				
 				
 //				System.out.println("Origin: " + origin);
 //				System.out.println("Destiny: " + destiny);
 				
 				result = "\n--Player " + playingNow + " threw the dice and got " + d;
-			}
+				
+				if(destiny.getId() == rows * cols) {
+					
+					result += "\n--Player " + playingNow + " has won!";
+					  
+				}
 			
 		} else {
 			
@@ -694,8 +697,6 @@ public class Board {
 //		destiny.setPlayers(playingNow);
 //		origin.setPlayers(getPlayers().replace(playingNow, ""));
 //		
-		
-		
 //		movePlayer(d, playingNow, origin);
 	}
 	
@@ -703,16 +704,32 @@ public class Board {
 
 		int d = (int) (Math.random() * (6 - 1) + 1);
 		
-		System.out.println("Dice: " + d);
+//		System.out.println("Dice: " + d);
 		
 		return d;
 	}
 	
-	private void movePlayer(int d, String player, Square s) {
+	private void makeJump(String player, Square destiny) {
 
-		if(d > 0) {
+		if(destiny != null) {
 			
-			
+			if(destiny.hasConnection()) {
+				
+				Square jump = destiny.getJump();
+				
+				destiny.setPlayers(destiny.getPlayers().replace(player, ""));
+//				
+//				System.out.println("==Jump: " + jump);
+
+				if(jump.getPlayers() == null) {
+					
+					jump.setPlayers(player);
+					
+				} else {
+					
+					jump.setPlayers(jump.getPlayers().concat(player));
+				}
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@ package model;
 public class Square {
 	
 private static final String ANSI_RED = "\u001B[31m";
+private static final String ANSI_CYAN = "\u001B[36m";
 private static final String ANSI_RESET = "\u001B[0m";
 	
 	private int id;
@@ -129,11 +130,13 @@ private static final String ANSI_RESET = "\u001B[0m";
 			
 			result = "[";
 			result += connectionId;
+//			result += ANSI_RED + connectionId + ANSI_RESET;
 		} 
 		
 		if(players != null) {
 			
 			result += players;
+//			result += ANSI_CYAN + players + ANSI_RESET;
 		}
 		
 		result += "]";
