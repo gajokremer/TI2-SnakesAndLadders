@@ -15,8 +15,8 @@ public class Board {
 	private int playerPos;
 	
 	public Board(int rows, int cols, int snakes, int ladders, String players) {
-		this.rows = rows;
-		this.cols = cols;
+		this.setRows(rows);
+		this.setCols(cols);
 		createBoard();
 		numberSquares(0);
 		createSnakesAndLadders(snakes, ladders);
@@ -24,6 +24,13 @@ public class Board {
 		first.setPlayers(players);
 		setPlayingNow(null);
 		setPlayerPos(-1);
+	}
+	
+	public Board(int rows, int cols) {
+		this.setRows(rows);
+		this.setCols(cols);
+		createBoard();
+		numberSquares(0);
 	}
 	
 	public Square getFirst() {
@@ -56,6 +63,10 @@ public class Board {
 
 	public void setCols(int cols) {
 		this.cols = cols;
+	}
+	
+	public int getTotalSquares() {
+		return rows * cols;
 	}
 
 	public int getSnakes() {
@@ -198,7 +209,7 @@ public class Board {
 		
 //		first.setId(n);
 		
-		if(n <= rows * cols) {
+		if(n <= getTotalSquares()) {
 			
 			numberRow(n + 1, first);
 		}
@@ -290,11 +301,11 @@ public class Board {
 		return current;
 	}
 	
-	private void createSnakesAndLadders(int s, int l) {
+	public void createSnakesAndLadders(int s, int l) {
 		
-		int limit = (rows * cols) - 1;
+		int limit = (getTotalSquares()) - 1;
 		
-		if(s * 2 + l * 2 < rows * cols) {
+		if(s * 2 + l * 2 < getTotalSquares()) {
 			
 			createSnakes(s, limit, 'A');
 			createLadders(l, limit, 1);
@@ -643,7 +654,7 @@ public class Board {
 		Square destiny = findSquare(origin.getId() + d);
 		Square jump = null;
 		
-		if(origin.getId() + d <= rows * cols) {
+		if(origin.getId() + d <= getTotalSquares()) {
 			
 				origin.setPlayers(origin.getPlayers().replace(playingNow, ""));
 				
@@ -674,14 +685,15 @@ public class Board {
 					result += "==> " + jump;
 				}
 				
-				if(destiny.getId() == rows * cols) {
+				if(destiny.getId() == getTotalSquares()) {
 					
 					result += "\n\n--Player " + playingNow + " has won!";
 				}
 			
 		} else {
 			
-			result = "--Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
+			result = "\n--Player " + playingNow + " threw the dice and got " + d;
+			result += "\n-Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
 		}
 		
 //		System.out.println("Origin: " + origin);
@@ -697,7 +709,7 @@ public class Board {
 //		movePlayer(d, playingNow, origin);
 	}
 	
-	private int dice() {
+	public int dice() {
 
 		int d = (int) (Math.random() * (6 - 1) + 1);
 		

@@ -13,7 +13,6 @@ public class Menu {
 	
 	public Menu() {
 		
-//		board = new Board();
 		sc = new Scanner(System.in);
 	}
 	
@@ -128,7 +127,7 @@ public class Menu {
 					
 					System.out.println("\n" + board.printClean());;
 					System.out.println("\n----------/GAME ENDED/----------\n");
-					System.out.println("\n\n\n");;
+					System.out.println("\n\n");;
 					
 				} else {
 					
