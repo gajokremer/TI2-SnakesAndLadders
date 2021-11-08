@@ -613,7 +613,7 @@ public class Board {
 //		return current;
 	}
 	
-	public void nextTurn(int n) {
+	private void nextTurn(int n) {
 		
 		n = n + 1;
 		
@@ -629,7 +629,6 @@ public class Board {
 			setPlayingNow(String.valueOf(players.charAt(0)));
 			setPlayerPos(0);
 		}
-		
 	}
 
 	public String move() {
@@ -646,19 +645,40 @@ public class Board {
 		
 		Square destiny = findSquare(origin.getId() + d);
 		
+		System.out.println("Destiny: " + destiny)
+		;
 		if(origin.getId() + d <= rows * cols) {
 			
 			if(destiny.getId() == rows * cols) {
 				
-				result = "--Player " + playingNow + " has won";
+				result = "\n--Player " + playingNow + " has won";
 				  
 			} else {
 				
-				origin.setPlayers("");
-				destiny.setPlayers(playingNow); 
+//				origin.setPlayers("");
+//				destiny.setPlayers(playingNow); 
 				
-				System.out.println("Origin: " + origin);
-				System.out.println("Destiny: " + destiny);
+				
+				System.out.println(origin.getPlayers());
+				System.out.println(destiny.getPlayers());
+				
+//				System.out.println(origin.getPlayers().replace(playingNow, ""));
+//				System.out.println(destiny.getPlayers().concat(playingNow));
+				
+				origin.setPlayers(origin.getPlayers().replace(playingNow, ""));
+				
+				if(destiny.getPlayers() == null) {
+					
+					destiny.setPlayers(playingNow);
+					
+				} else {
+					
+					destiny.setPlayers(destiny.getPlayers().concat(playingNow));
+				}
+				
+				
+//				System.out.println("Origin: " + origin);
+//				System.out.println("Destiny: " + destiny);
 				
 				result = "\n--Player " + playingNow + " threw the dice and got " + d;
 			}

@@ -94,7 +94,7 @@ public class Menu {
 	
 	public void test() {
 		
-		board = new Board(4, 4, 3, 2, "@");
+		board = new Board(8, 8, 3, 2, "@#$%");
 		
 		System.out.println("\n" + board);
 		gameMenu();
