@@ -127,8 +127,8 @@ public class Menu {
 				if(result.contains("won")) {
 					
 					System.out.println("\n" + board.printClean());;
+					System.out.println("\n----------/GAME ENDED/----------\n");
 					System.out.println("\n\n\n");;
-					mainMenu();
 					
 				} else {
 					
