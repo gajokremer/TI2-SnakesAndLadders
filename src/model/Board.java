@@ -642,18 +642,11 @@ public class Board {
 		int d  = dice();
 		
 		Square origin = findPlayerSquare(playingNow);
-		
-		System.out.println("Origin: " + origin);
-		
 		Square destiny = findSquare(origin.getId() + d);
-		
-		System.out.println("Destiny: " + destiny);
+		Square jump = null;
 		
 		if(origin.getId() + d <= rows * cols) {
 			
-//				System.out.println(origin.getPlayers());
-//				System.out.println(destiny.getPlayers());
-				
 				origin.setPlayers(origin.getPlayers().replace(playingNow, ""));
 				
 				if(destiny.getPlayers() == null) {
@@ -662,7 +655,7 @@ public class Board {
 					
 					if(destiny.getJump() != null) {
 						
-						makeJump(playingNow, destiny);
+						jump = makeJump(playingNow, destiny);
 					}
 					
 				} else {
@@ -671,25 +664,31 @@ public class Board {
 					
 					if(destiny.getJump() != null) {
 						
-						makeJump(playingNow, destiny);
+						jump = makeJump(playingNow, destiny);
 					}
 				}
 				
-//				System.out.println("Origin: " + origin);
-//				System.out.println("Destiny: " + destiny);
-				
 				result = "\n--Player " + playingNow + " threw the dice and got " + d;
+				result += "\n" + origin + "--> " + destiny;
+				
+				if(jump != null) {
+					
+					result += "==> " + jump;
+				}
 				
 				if(destiny.getId() == rows * cols) {
 					
-					result += "\n--Player " + playingNow + " has won!";
-					  
+					result += "\n\n--Player " + playingNow + " has won!";
 				}
 			
 		} else {
 			
-			result = "Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
+			result = "--Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
 		}
+		
+//		System.out.println("Origin: " + origin);
+//		System.out.println("Destiny: " + destiny);
+//		System.out.println("Jump: " + jump);
 		
 		return result;
 		
@@ -709,13 +708,15 @@ public class Board {
 		return d;
 	}
 	
-	private void makeJump(String player, Square destiny) {
+	private Square makeJump(String player, Square destiny) {
+		
+		Square jump = null;
 
 		if(destiny != null) {
 			
 			if(destiny.hasConnection()) {
 				
-				Square jump = destiny.getJump();
+				jump = destiny.getJump();
 				
 				destiny.setPlayers(destiny.getPlayers().replace(player, ""));
 //				
@@ -731,5 +732,7 @@ public class Board {
 				}
 			}
 		}
+		
+		return jump;
 	}
 }

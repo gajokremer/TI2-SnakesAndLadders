@@ -26,7 +26,6 @@ public class Menu {
 		System.out.println(
 				"\nSelect an option:\n" + 
 						"(1) to Play" + 
-//						"(2) to print Board" +
 
 				"\n(0) to exit");
 
@@ -48,13 +47,6 @@ public class Menu {
 				break;
 
 			case 2:
-				System.out.println(board);
-				System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
-				System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
-				mainMenu();
-				break;
-				
-			case 3:
 				test();
 				mainMenu();
 				break;
@@ -73,11 +65,6 @@ public class Menu {
 		
 		String[] a = input.split(" ");
 		
-//		for(int i = 0; i < a.length; i++) {
-//			
-//			System.out.println(a[i]);
-//		}
-		
 		int rows = Integer.parseInt(a[0]);
 		int cols = Integer.parseInt(a[1]);
 		int snakes = Integer.parseInt(a[2]);
@@ -86,6 +73,7 @@ public class Menu {
 		
 		board = new Board(rows, cols, snakes, ladders, players);
 		
+		System.out.println("\n--Board has been created");
 		System.out.println("\n" + board);
 		sc.nextLine(); //Enter before starting
 		
@@ -94,32 +82,19 @@ public class Menu {
 	
 	public void test() {
 		
-		board = new Board(8, 8, 5, 4, "@#$%");
+		board = new Board(10, 10, 7, 5, "@#$%");
 		
 		System.out.println("\n" + board);
 		gameMenu();
-		
-//		System.out.println("\n" + board);
-//		System.out.println("\n" + board.printClean());
-//		
-//		System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
-//		System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
 	}
 	
 	public void gameMenu() {
 		
 		String option = "";
 
-		System.out.println("\n\n--------GAME MENU--------\n");
+		System.out.println("\n\n\n----------GAME BOARD----------\n");
 
-//		System.out.println(
-//				"\nSelect an option:\n" + 
-//						"(1) to Play" + 
-//						"(2) to print Board" +
-//
-//				"\n(0) to exit");
-
-		System.out.println(board.printClean());
+		System.out.print(board.printClean());
 		
 		option = sc.nextLine();
 		option.toLowerCase();
@@ -138,6 +113,8 @@ public class Menu {
 				
 			case "num":
 				System.out.println("\n" + board);
+				System.out.println("First: " + board.getFirst() + ", " + board.getFirst().getCoordinates());
+				System.out.println("Last: " + board.getLast() + ", " + board.getLast().getCoordinates());
 				gameMenu();
 				break;
 				
@@ -150,6 +127,7 @@ public class Menu {
 				if(result.contains("won")) {
 					
 					System.out.println("\n" + board.printClean());;
+					System.out.println("\n\n\n");;
 					mainMenu();
 					
 				} else {
