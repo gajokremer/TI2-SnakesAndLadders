@@ -517,39 +517,70 @@ public class Board {
 		
 		if(firstCurrentRow != null) {
 			
-			System.out.println("Read on Row");
+//			System.out.println("\nRead on Row");
+			
+			boolean b = readSquareString(player, firstCurrentRow, 0);
+//			System.out.println("=Boolean: " + b + "\n");
 			if(!readSquareString(player, firstCurrentRow, 0)) {
 				
 				current = findPlayerCol(player, firstCurrentRow.getNext());
-				current = findPlayerRow(player, firstCurrentRow.getUp(), current);
+				
+				if(!findPlayerColBoolean(player, firstCurrentRow.getNext())) {
+					
+					current = findPlayerRow(player, firstCurrentRow.getUp(), firstCurrentRow.getUp());
+				}
 			}
 		}
 		
 		return current;	
 	}
 	
-	private Square findPlayerCol(String players, Square current) {
+	private Square findPlayerCol(String player, Square current) {
 		
 //		System.out.println("--" + current);
 		
 		if(current != null) {
 			
-			System.out.println("Read on Col");
-			if(!readSquareString(players, current, 0)) {
+//			System.out.println("Read on Col");
+			
+			boolean b = readSquareString(player, current, 0);
+//			System.out.println("==Boolean: " + b + "\n");
+			if(!readSquareString(player, current, 0)) {
 				
-				current = findPlayerCol(players, current.getNext());
+				current = findPlayerCol(player, current.getNext());
 			}
 		}
 		
 		return current;
 	}
 	
+	private boolean findPlayerColBoolean(String player, Square current) {
+		
+//		System.out.println("--" + current);
+		
+		boolean isThere = false;
+		
+		if(current != null) {
+			
+			if(!readSquareString(player, current, 0)) {
+				
+				isThere = findPlayerColBoolean(player, current.getNext());
+				 
+			} else {
+				
+				isThere = true;
+			}
+		}
+		
+		return isThere;
+	}
+	
 	private boolean readSquareString(String player, Square current, int pos) {
 		
 		boolean isHere = false;
 		
-		System.out.println("Current: " + current);
-		System.out.println("Pos: " + pos);
+//		System.out.println("Current: " + current);
+//		System.out.println("Pos: " + pos);
 		
 		if(current != null) {
 			
@@ -557,20 +588,22 @@ public class Board {
 				
 				if(pos < current.getPlayers().length()) {
 					
-					System.out.println("-" + current.getPlayers());
-					System.out.println("--" + current.getPlayers().charAt(pos));
+//					System.out.println("-" + current.getPlayers());
+//					System.out.println("--" + current.getPlayers().charAt(pos));
 					
 					String s = String.valueOf(current.getPlayers().charAt(pos));
 					
-					System.out.println("---" + s.equalsIgnoreCase(player));
+//					System.out.println("---" + s.equalsIgnoreCase(player));
 					
 					if(!s.equalsIgnoreCase(player)) {			
 						
-						readSquareString(player, current, pos + 1);
+						isHere = readSquareString(player, current, pos + 1);
+//						System.out.println("----" + isHere);
 						
 					} else {
 						
 						isHere = true;
+//						System.out.println("----" + isHere);
 					}
 				}
 			}
@@ -599,7 +632,9 @@ public class Board {
 		
 	}
 
-	public void move() {
+	public String move() {
+		
+		String result = "";
 		
 		nextTurn(playerPos);
 		
@@ -611,15 +646,35 @@ public class Board {
 		
 		Square destiny = findSquare(origin.getId() + d);
 		
+		if(origin.getId() + d <= rows * cols) {
+			
+			if(destiny.getId() == rows * cols) {
+				
+				result = "--Player " + playingNow + " has won";
+				  
+			} else {
+				
+				origin.setPlayers("");
+				destiny.setPlayers(playingNow); 
+				
+				System.out.println("Origin: " + origin);
+				System.out.println("Destiny: " + destiny);
+				
+				result = "\n--Player " + playingNow + " threw the dice and got " + d;
+			}
+			
+		} else {
+			
+			result = "Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
+		}
 		
-		origin.setPlayers("");
-		destiny.setPlayers(playingNow);
+		return result;
+		
 		
 //		destiny.setPlayers(playingNow);
 //		origin.setPlayers(getPlayers().replace(playingNow, ""));
 //		
-		System.out.println("Origin: " + origin);
-		System.out.println("Destiny: " + destiny);
+		
 		
 //		movePlayer(d, playingNow, origin);
 	}

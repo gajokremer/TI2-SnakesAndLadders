@@ -94,7 +94,7 @@ public class Menu {
 	
 	public void test() {
 		
-		board = new Board(4, 4, 1, 1, "@");
+		board = new Board(4, 4, 3, 2, "@");
 		
 		System.out.println("\n" + board);
 		gameMenu();
@@ -110,7 +110,7 @@ public class Menu {
 		
 		String option = "";
 
-		System.out.println("\n--------GAME MENU--------\n");
+		System.out.println("\n\n--------GAME MENU--------\n");
 
 //		System.out.println(
 //				"\nSelect an option:\n" + 
@@ -142,9 +142,19 @@ public class Menu {
 				break;
 				
 			case "":
-				board.move();
+				String result = (board.move());
+				System.out.println(result);;
 				System.out.println("Player: " + board.getPlayingNow() + ", " + board.getPlayerPos());
-				gameMenu();
+				
+				if(result.contains("won")) {
+					
+					mainMenu();
+					
+				} else {
+					
+					gameMenu();
+				}
+				
 				break;
 			} 
 		}
