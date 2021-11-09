@@ -648,7 +648,7 @@ public class Board {
 		
 		nextTurn(playerPos);
 		
-		int d  = dice();
+		int d = dice();
 		
 		Square origin = findPlayerSquare(playingNow);
 		Square destiny = findSquare(origin.getId() + d);
@@ -702,13 +702,67 @@ public class Board {
 		
 		return result;
 		
-		
 //		destiny.setPlayers(playingNow);
 //		origin.setPlayers(getPlayers().replace(playingNow, ""));
 //		
 //		movePlayer(d, playingNow, origin);
 	}
 	
+	public String move(int d) {
+		
+		String result = "";
+		
+		nextTurn(playerPos);
+		
+		Square origin = findPlayerSquare(playingNow);
+		Square destiny = findSquare(origin.getId() + d);
+		Square jump = null;
+		
+		if(origin.getId() + d <= getTotalSquares()) {
+			
+				origin.setPlayers(origin.getPlayers().replace(playingNow, ""));
+				
+				if(destiny.getPlayers() == null) {
+					
+					destiny.setPlayers(playingNow);
+					
+					if(destiny.getJump() != null) {
+						
+						jump = makeJump(playingNow, destiny);
+					}
+					
+				} else {
+					
+					destiny.setPlayers(destiny.getPlayers().concat(playingNow));
+					
+					if(destiny.getJump() != null) {
+						
+						jump = makeJump(playingNow, destiny);
+					}
+				}
+				
+				result = "\n--Player " + playingNow + " threw the dice and got " + d;
+				result += "\n" + origin + "--> " + destiny;
+				
+				if(jump != null) {
+					
+					result += "==> " + jump;
+				}
+				
+				if(destiny.getId() == getTotalSquares()) {
+					
+					result += "\n\n--Player " + playingNow + " has won!";
+				}
+			
+		} else {
+			
+			result = "\n--Player " + playingNow + " threw the dice and got " + d;
+			result += "\n-Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
+		}
+		
+		return result;
+	}
+
 	public int dice() {
 
 		int d = (int) (Math.random() * (6 - 1) + 1);

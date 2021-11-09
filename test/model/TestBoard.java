@@ -23,6 +23,15 @@ class TestBoard {
 		board = new Board(7, 10);
 	}
 	
+	public void setUpScenario3() {
+		
+		board = new Board(9, 8, 0, 0, "^");
+		
+		Square s = board.findSquare(board.getTotalSquares() - 1);
+		board.getFirst().setPlayers("");
+		s.setPlayers("^");
+	}
+	
 	@Test
 	public void testAdd() {
 		
@@ -31,36 +40,6 @@ class TestBoard {
 		assertTrue(board.getLast().getRow() == 5);
 		assertTrue(board.getLast().getCol() == 0);
 	}
-	
-//	@Test
-//	public void testCreateSnakes() {
-//		
-//		setUpScenario1();
-//		
-//		int total = (board.getRows() * board.getCols()) - 1;
-//		
-//		int i = (int) (Math.random() * (total - 2) + 2);
-//		Square a = board.findSquare(i);
-//		Square b = a.getJump();
-//		
-//		boolean o = a.hasConnection();
-//		
-//		if(o) {
-//			
-//			assertTrue(a.getJump() == b);
-//			
-//		} else {
-//			
-//			assertFalse(a.getJump() != null);
-//		}
-//		
-//		int j = (int) (Math.random() * (total - 2) + 2);
-//		
-//		assertNotEquals(i, 1);
-//		assertNotEquals(i, total - 1);
-//		assertNotEquals(j, 1);
-//		assertNotEquals(j, total - 1);
-//	}
 	
 	@Test
 	public void testPlayers(){
@@ -106,6 +85,30 @@ class TestBoard {
 			assertFalse(a.getJump() != null);
 		}
 		
-		System.out.println("\n" + board.printClean());
+//		System.out.println("\n" + board.printClean());
+	}
+	
+	@Test
+	public void testWin() {
+		 
+		setUpScenario3();
+		
+		assertTrue(board.move(1).contains("won"));
+	}
+	
+	@Test
+	public void testNotWin() {
+		
+		setUpScenario3();
+		
+		assertTrue(board.move(2).contains("equal"));
+	}
+	
+	@Test
+	public void testPrint() {
+		
+		setUpScenario1();
+		
+		assertFalse(board.printClean().equals(board.toString()));
 	}
 }

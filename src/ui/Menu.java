@@ -45,10 +45,10 @@ public class Menu {
 				mainMenu();
 				break;
 
-			case 2:
-				test();
-				mainMenu();
-				break;
+//			case 2:
+//				test();
+//				mainMenu();
+//				break;
 			} 
 
 		} else if(option == 0) {
@@ -79,13 +79,13 @@ public class Menu {
 		gameMenu();
 	}
 	
-	private void test() {
-		
-		board = new Board(10, 10, 7, 5, "@#$%");
-		
-		System.out.println("\n" + board);
-		gameMenu();
-	}
+//	private void test() {
+//		
+//		board = new Board(10, 10, 7, 5, "@#$%");
+//		
+//		System.out.println("\n" + board);
+//		gameMenu();
+//	}
 	
 	private void gameMenu() {
 		
