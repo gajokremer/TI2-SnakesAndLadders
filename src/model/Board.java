@@ -157,7 +157,7 @@ public class Board {
 			
 			if(c == cols - 1) {
 				
-				last = getLastOfRow(current);
+				last = findLastOfRow(current);
 			}
 			
 			createCol(r, c + 1, current, prevRow);
@@ -234,7 +234,7 @@ public class Board {
 				n = numberCol(n + 1, firstCurrentRow.getNext(), b);
 			}
 			
-			firstCurrentRow = getLastOfRow(firstCurrentRow);
+			firstCurrentRow = findLastOfRow(firstCurrentRow);
 //			System.out.println("Last of row: " + firstCurrentRow.toString());
 			n = numberRow(n, firstCurrentRow.getUp());
 		}
@@ -263,7 +263,7 @@ public class Board {
 		return n;
 	}
 	
-	private Square getLastOfRow(Square current) {
+	private Square findLastOfRow(Square current) {
 		
 		if(current.getNext() == null) {
 			

@@ -35,9 +35,9 @@ class TestBoard {
 	@Test
 	public void testAdd() {
 		
-		setUpScenario1();
+		setUpScenario2();
 		
-		assertTrue(board.getLast().getRow() == 5);
+		assertTrue(board.getLast().getRow() == 6);
 		assertTrue(board.getLast().getCol() == 0);
 	}
 	
@@ -58,6 +58,26 @@ class TestBoard {
 		int d = board.dice();
 		
 		assertFalse(d == 0);
+	}
+	
+	@Test
+	public void testFindSquare() {
+
+		setUpScenario1();
+		
+		Square s = board.findSquare(15);
+		
+		assertTrue(s.getId() == 15);
+	}
+	
+	@Test
+	public void testFindPlayerSquare() {
+
+		setUpScenario3();
+		
+		Square s = board.findPlayerSquare("^");
+		
+		assertTrue(s.getPlayers().contains("^"));
 	}
 	
 	@Test
@@ -84,8 +104,6 @@ class TestBoard {
 			
 			assertFalse(a.getJump() != null);
 		}
-		
-//		System.out.println("\n" + board.printClean());
 	}
 	
 	@Test
@@ -110,5 +128,24 @@ class TestBoard {
 		setUpScenario1();
 		
 		assertFalse(board.printClean().equals(board.toString()));
+	}
+	
+	@Test
+	private void testLastSquare() {
+
+		setUpScenario2();
+		
+		if(board.getTotalSquares() % 2 == 0) {
+			
+			assertTrue(board.getLast().getId() == board.getTotalSquares());
+			
+		} else {
+			
+			assertFalse(board.getLast().getId() == board.getTotalSquares());
+			
+			Square lastSquare = board.findSquare(board.getTotalSquares());
+			
+			assertFalse(board.getLast().getId() == lastSquare.getId());
+		}
 	}
 }
