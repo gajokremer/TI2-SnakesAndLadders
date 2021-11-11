@@ -8,11 +8,6 @@ class TestBoard {
 
 	private Board board;
 
-//	@Test
-//	void test() {
-//		fail("Not yet implemented");
-//	}
-
 	public void setUpScenario1() {
 
 		board = new Board(6, 6, 2, 2, "@#");

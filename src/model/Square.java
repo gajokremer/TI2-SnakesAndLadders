@@ -2,10 +2,6 @@ package model;
 
 public class Square {
 	
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_CYAN = "\u001B[36m";
-	public static final String ANSI_RESET = "\u001B[0m";
-	
 	private int id;
 	private int row;
 	private int col;
@@ -22,7 +18,6 @@ public class Square {
 	private String players;
 	
 	public Square(int row, int col) {
-//		this.id = id;
 		this.row = row;
 		this.col = col;
 	}
@@ -130,13 +125,11 @@ public class Square {
 			
 			result = "[";
 			result += connectionId;
-//			result += ANSI_RED + connectionId + ANSI_RESET;
 		} 
 		
 		if(players != null) {
 			
 			result += players;
-//			result += ANSI_CYAN + players + ANSI_RESET;
 		}
 		
 		result += "]";
@@ -153,10 +146,7 @@ public class Square {
 			
 		} else {
 			
-//			return "[" + id + ANSI_RED + connectionId + ANSI_RESET + "] ";
 			return "[" + id + "-" + connectionId + "] ";
 		}
-		
-//		return "[" + id + "] ";
 	}
 }

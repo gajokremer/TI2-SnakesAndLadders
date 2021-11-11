@@ -9,8 +9,6 @@ public class Menu {
 	private Board board;
 	private Scanner sc;
 	
-	public static final String ANSI_RED = "\u001B[31m";
-	
 	public Menu() {
 		
 		sc = new Scanner(System.in);
@@ -79,14 +77,6 @@ public class Menu {
 		gameMenu();
 	}
 	
-//	private void test() {
-//		
-//		board = new Board(10, 10, 7, 5, "@#$%");
-//		
-//		System.out.println("\n" + board);
-//		gameMenu();
-//	}
-	
 	private void gameMenu() {
 		
 		String option = "";
@@ -121,7 +111,6 @@ public class Menu {
 				
 				String result = (board.move());
 				System.out.println(result);;
-//				System.out.println("Player: " + board.getPlayingNow() + ", " + board.getPlayerPos());
 				
 				if(result.contains("won")) {
 					

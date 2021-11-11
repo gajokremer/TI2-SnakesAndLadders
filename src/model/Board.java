@@ -111,24 +111,15 @@ public class Board {
 
 	private void createBoard() {
 
-//		System.out.println("\nMatrix is created");
 		first =  new Square(0, 0);
-//		System.out.println("First square created");
 		createRow(0, 0, first);
 	}
 	
 	private void createRow(int r, int c, Square firstCurrentRow) {
 
-//		System.out.println("\nCreate row with row: " + r);
-//		createCol(r, c + 1, firstCurrentRow, firstCurrentRow.getUp());
 		createCol(r, c + 1, firstCurrentRow, firstCurrentRow.getDown());
 		
 		if(r + 1 < rows) {
-			
-//			Square firstDownRow = new Square(r + 1, c);
-//			firstDownRow.setUp(firstCurrentRow);
-//			firstCurrentRow.setDown(firstDownRow);
-//			createRow(r + 1, c, firstDownRow);
 			
 			Square firstUpRow = new Square(r + 1, c);
 			firstUpRow.setDown(firstCurrentRow);
@@ -141,7 +132,6 @@ public class Board {
 		
 		if(c < cols) {
 			
-//			System.out.println("-Create col with col: " + c);
 			Square current = new Square(r, c);
 			current.setPrev(prev);
 			prev.setNext(current);
@@ -149,8 +139,6 @@ public class Board {
 			if(prevRow != null) {
 				
 				prevRow = prevRow.getNext();
-//				current.setUp(prevRow);
-//				prevRow.setDown(current);
 				current.setDown(prevRow);
 				prevRow.setUp(current);
 			}
@@ -169,8 +157,6 @@ public class Board {
 		
 		String msg = "";
 		
-//		msg = toStringRow(first);
-//		Square firstOfRow = getLastOfRow(last);
 		msg = toStringRow(last);
 		
 		return msg;
@@ -184,7 +170,6 @@ public class Board {
 			
 			msg = toStringCol(firstCurrentRow) + "\n";
 			msg += toStringRow(firstCurrentRow.getDown());
-//			msg += toStringRow(firstCurrentRow.getUp());
 		}
 		
 		return msg;
@@ -196,18 +181,14 @@ public class Board {
 		
 		if(current != null) {
 			
-//			msg += current.toString();
 			msg += current.toString();
 			msg += toStringCol(current.getNext());
-//			msg += toStringCol(current.getPrev());
 		}
 		
 		return msg;
 	}
 
 	private void numberSquares(int n) {
-		
-//		first.setId(n);
 		
 		if(n <= getTotalSquares()) {
 			
@@ -216,8 +197,6 @@ public class Board {
 	}
 
 	private int numberRow(int n, Square firstCurrentRow) {
-		
-//		System.out.println("\nRow n: " + n); //1
 		
 		if(firstCurrentRow != null) {
 			
@@ -235,7 +214,6 @@ public class Board {
 			}
 			
 			firstCurrentRow = findLastOfRow(firstCurrentRow);
-//			System.out.println("Last of row: " + firstCurrentRow.toString());
 			n = numberRow(n, firstCurrentRow.getUp());
 		}
 		
@@ -243,8 +221,6 @@ public class Board {
 	}
 
 	private int numberCol(int n, Square current, boolean b) {
-		
-//		System.out.println("Col n: " + n);
 		
 		if(current != null) {
 			
@@ -281,9 +257,7 @@ public class Board {
 		
 		if(current.getPrev() != null) {
 			
-//			current = current.getNext();
 			current = findLastLeft(current.getPrev());
-//			System.out.println("Last of row: " + current.toString());
 		}
 		
 		return current;
@@ -293,9 +267,7 @@ public class Board {
 		
 		if(current.getNext() != null) {
 			
-//			current = current.getNext();
 			current = findLastRight(current.getNext());
-//			System.out.println("Last of row: " + current.toString());
 		}
 		
 		return current;
@@ -317,14 +289,10 @@ public class Board {
 		if(s > 0) {
 			
 			int i = (int) (Math.random() * (limit - 2) + 2);
-//			System.out.println("\nRandom i: " + i);
 			Square a = findSquare(i);
-//			System.out.println("A: " + a);
 			
 			int j = (int) (Math.random() * (limit - 2) + 2);
-//			System.out.println("Random j: " + j);
 			Square b = findSquare(j);
-//			System.out.println("B: " + b);
 			
 			if(a.hasConnection() || b.hasConnection()) {
 				
@@ -371,14 +339,10 @@ public class Board {
 		if(l > 0) {
 			
 			int i = (int) (Math.random() * (limit - 2) + 2);
-//			System.out.println("\nRandom i: " + i);
 			Square a = findSquare(i);
-//			System.out.println("A: " + a);
 			
 			int j = (int) (Math.random() * (limit - 2) + 2);
-//			System.out.println("Random j: " + j);
 			Square b = findSquare(j);
-//			System.out.println("B: " + b);
 			
 			if(a.hasConnection() || b.hasConnection()) {
 				
@@ -458,7 +422,6 @@ public class Board {
 		
 		if(first != null) {
 			
-//			System.out.println("\n" + first);;
 			s = findRow(n, first, first);
 		}
 		
@@ -467,15 +430,11 @@ public class Board {
 	
 	private Square findRow(int n, Square firstCurrentRow, Square current) {
 		
-//		System.out.println("-" + firstCurrentRow);
-		
 		if(firstCurrentRow != null) {
 			
 			if(firstCurrentRow.getId() != n) {
 				
 				current = findCol(n, firstCurrentRow.getNext());
-				
-//				System.out.println("=" + current + ", " + n);
 				
 				if(current.getId() != n) {
 					
@@ -488,8 +447,6 @@ public class Board {
 	}
 
 	private Square findCol(int n, Square current) {
-		
-//		System.out.println("--" + current);
 		
 		if(current != null) {
 			
@@ -511,25 +468,15 @@ public class Board {
 		
 		if(first != null) {
 			
-//			System.out.println("\n" + first);;
 			s = findPlayerRow(player, first, first);
 		}
-		
-//		System.out.println("S: " + s);
 		
 		return s;
 	}
 	
 	private Square findPlayerRow(String player, Square firstCurrentRow, Square current) {
 		
-//		System.out.println("-" + firstCurrentRow);
-		
 		if(firstCurrentRow != null) {
-			
-//			System.out.println("\nRead on Row");
-			
-//			boolean b = readSquareString(player, firstCurrentRow, 0);
-//			System.out.println("=Boolean: " + b + "\n");
 			
 			if(!readSquareString(player, firstCurrentRow, 0)) {
 				
@@ -547,14 +494,7 @@ public class Board {
 	
 	private Square findPlayerCol(String player, Square current) {
 		
-//		System.out.println("--" + current);
-		
 		if(current != null) {
-			
-//			System.out.println("Read on Col");
-			
-//			boolean b = readSquareString(player, current, 0);
-//			System.out.println("==Boolean: " + b + "\n");
 			
 			if(!readSquareString(player, current, 0)) {
 				
@@ -566,8 +506,6 @@ public class Board {
 	}
 	
 	private boolean findPlayerColBoolean(String player, Square current) {
-		
-//		System.out.println("--" + current);
 		
 		boolean isThere = false;
 		
@@ -590,38 +528,27 @@ public class Board {
 		
 		boolean isHere = false;
 		
-//		System.out.println("Current: " + current);
-//		System.out.println("Pos: " + pos);
-		
 		if(current != null) {
 			
 			if(current.getPlayers() != null) {
 				
 				if(pos < current.getPlayers().length()) {
 					
-//					System.out.println("-" + current.getPlayers());
-//					System.out.println("--" + current.getPlayers().charAt(pos));
-					
 					String s = String.valueOf(current.getPlayers().charAt(pos));
-					
-//					System.out.println("---" + s.equalsIgnoreCase(player));
 					
 					if(!s.equalsIgnoreCase(player)) {			
 						
 						isHere = readSquareString(player, current, pos + 1);
-//						System.out.println("----" + isHere);
 						
 					} else {
 						
 						isHere = true;
-//						System.out.println("----" + isHere);
 					}
 				}
 			}
 		}
 		
 		return isHere;
-//		return current;
 	}
 	
 	private void nextTurn(int n) {
@@ -696,16 +623,7 @@ public class Board {
 			result += "\n-Player " + playingNow + " can't move, unless the dice number is equal or less to what is needed to win";
 		}
 		
-//		System.out.println("Origin: " + origin);
-//		System.out.println("Destiny: " + destiny);
-//		System.out.println("Jump: " + jump);
-		
 		return result;
-		
-//		destiny.setPlayers(playingNow);
-//		origin.setPlayers(getPlayers().replace(playingNow, ""));
-//		
-//		movePlayer(d, playingNow, origin);
 	}
 	
 	public String move(int d) {
@@ -767,8 +685,6 @@ public class Board {
 
 		int d = (int) (Math.random() * (6 - 1) + 1);
 		
-//		System.out.println("Dice: " + d);
-		
 		return d;
 	}
 	
@@ -783,9 +699,7 @@ public class Board {
 				jump = destiny.getJump();
 				
 				destiny.setPlayers(destiny.getPlayers().replace(player, ""));
-//				
-//				System.out.println("==Jump: " + jump);
-
+				
 				if(jump.getPlayers() == null) {
 					
 					jump.setPlayers(player);
