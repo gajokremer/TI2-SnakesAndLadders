@@ -33,7 +33,7 @@ class TestBoard {
 	}
 	
 	@Test
-	public void testAdd() {
+	public void testLastCoordinates() {
 		
 		setUpScenario2();
 		
@@ -56,8 +56,9 @@ class TestBoard {
 		setUpScenario1();
 		
 		int d = board.dice();
-		
-		assertFalse(d == 0);
+	
+		assertFalse(d < 0 && d > 7);
+		assertTrue(d > 0 && d < 7);
 	}
 	
 	@Test
@@ -81,13 +82,13 @@ class TestBoard {
 	}
 	
 	@Test
-	public void testCreateSnakesAndLadders() {
+	public void testSnakesAndLadderConnections() {
 		
 		setUpScenario2();
 		
 		board.createSnakesAndLadders(3, 4);
 		
-		int limit = board.getRows() * board.getCols();
+		int limit = board.getTotalSquares();
 		
 		int r = (int) (Math.random() * (limit - 1) + 1);
 		
@@ -113,38 +114,35 @@ class TestBoard {
 		
 		assertTrue(board.move(1).contains("won"));
 	}
-	
+
 	@Test
 	public void testNotWin() {
-		
+
 		setUpScenario3();
-		
+
 		assertTrue(board.move(2).contains("equal"));
 	}
-	
+
 	@Test
 	public void testPrint() {
-		
+
 		setUpScenario1();
-		
+
 		assertFalse(board.printClean().equals(board.toString()));
 	}
-	
+
 	@Test
-	private void testLastSquare() {
+	public void testLastSquare() {
 
 		setUpScenario2();
-		
-		if(board.getTotalSquares() % 2 == 0) {
-			
+
+		if(board.getRows() % 2 == 0) {
+
 			assertTrue(board.getLast().getId() == board.getTotalSquares());
-			
 		} else {
-			
-			assertFalse(board.getLast().getId() == board.getTotalSquares());
-			
+
 			Square lastSquare = board.findSquare(board.getTotalSquares());
-			
+
 			assertFalse(board.getLast().getId() == lastSquare.getId());
 		}
 	}
